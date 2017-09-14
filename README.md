@@ -1,5 +1,10 @@
 # JS Interview test snippets
 
+This tiny utility generates a JS-related technical test to be performed by interviewees during a developer recruitement process.
+It tests the knowledge about common pitfalls and edgy behaviours of Javascript, allowing to get a glance at the seniority of a JS developer. See [below](#test-sample) an example of a generated test.
+
+### Todo
+
 ### Requirements
 
 - `node >= 8`
