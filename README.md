@@ -5,6 +5,16 @@ It tests the knowledge about common pitfalls and edgy behaviours of Javascript, 
 
 ### Todo
 
+- [ ] Add more test snippets
+    - [ ] Case sensitivity
+    - [ ] async/wait
+    - [ ] map/reduce
+- [ ] Add answers+explanation in snippets source
+- [ ] Filter out answers+explanation from snippets when generating test
+- [ ] Utility to provide the result of a performed test
+    - [ ] Percentage of success
+    - [ ] Answers and explanation for each test snippet
+
 ### Requirements
 
 - `node >= 8`
