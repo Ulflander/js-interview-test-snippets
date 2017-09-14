@@ -28,7 +28,7 @@ function addLeadingZero (n) {
 }
 
 function getDate() {
-    var d = new Date();
+    let d = new Date();
     return util.format('%d-%s-%s',
                 d.getFullYear(),
                 addLeadingZero(d.getMonth() + 1),
@@ -61,7 +61,7 @@ async function getSnippetContent (filename) {
 }
 
 async function buildAndWriteTest (requiredPath, snippets, candidateName) {
-    var date = getDate(),
+    let date = getDate(),
         testContent;
 
     snippets = snippets.map((snippet, index) => util.format(SNIPPET_HEADER, index + 1) + snippet + SNIPPET_FOOTER);
@@ -71,7 +71,7 @@ async function buildAndWriteTest (requiredPath, snippets, candidateName) {
             util.format(TEST_FOOTER, date, candidateName)
 
     return new Promise(function (resolve, reject) {
-        var filepath = path.join(requiredPath, util.format('%s-%s.js', date, urlize(candidateName)));
+        let filepath = path.join(requiredPath, util.format('%s-%s.js', date, urlize(candidateName)));
 
         fs.writeFile(filepath, testContent, function (err) {
             if (err) {
@@ -85,14 +85,15 @@ async function buildAndWriteTest (requiredPath, snippets, candidateName) {
 
 async function main() {
 
-    // Load list
-    var snippets,
+    let snippets,
         snippetsCount,
-    // Set defaults
+
+        // Set defaults
         num = DEFAULT_NUM,
         candidateName = DEFAULT_NAME,
         requiredPath = DIST_FOLDER;
 
+    // Load list
     try {
         snippets = await getSnippetsList();
         snippetsCount = snippets.length;

@@ -1,5 +1,9 @@
 # JS Interview test snippets
 
+### Requirements
+
+- `node >= 8`
+
 ### Install
 
 Clone repo, run `npm install`.
