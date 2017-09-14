@@ -1,0 +1,113 @@
+#!/usr/bin/env node
+
+const   DEFAULT_NUM = 10,
+        DEFAULT_NAME = 'John Doe',
+        SNIPPETS_FOLDER = './snippets/',
+        DIST_FOLDER = './tests/',
+        TEST_HEADER = '// Welcome!\n' +
+                '// \n' +
+                '// This test contains %d code snippets.\n' +
+                '// \n' +
+                '// Good luck!\n',
+        TEST_FOOTER = '\n' +
+                '// Test generated on %s for candidate %s.\n',
+        SNIPPET_HEADER = '// -----------------------------------\n',
+        SNIPPET_FOOTER = '\n\n\n',
+
+
+        argv = require('yargs').argv,
+        urlize = require('urlize').urlize,
+        util = require('util'),
+        fs = require('fs'),
+        path = require('path');
+
+function getDate() {
+    var d = new Date();
+    return util.format('%d-%d-%d', d.getFullYear(), d.getMonth() + 1, d.getDate());
+}
+
+async function getSnippetsList () {
+    return new Promise(function (resolve, reject) {
+        fs.readdir(SNIPPETS_FOLDER, (err, files) => {
+            if (!!err) {
+                reject(err);
+            } else {
+                resolve(files.filter(file => file !== '.DS_Store'));
+            }
+        })
+    });
+}
+
+async function getSnippetContent (filename) {
+    return new Promise(function (resolve, reject) {
+        fs.readFile(path.join(SNIPPETS_FOLDER, filename), function (err, content) {
+
+            if (!!err) {
+                reject(err);
+            } else {
+                resolve(content.toString().trim());
+            }
+        });
+    });
+}
+
+async function buildAndWriteTest (requiredPath, snippets, candidateName) {
+    var date = getDate(),
+        testContent = util.format(TEST_HEADER, snippets.length) +
+            SNIPPET_HEADER +
+            snippets.join(SNIPPET_FOOTER + SNIPPET_HEADER) +
+            SNIPPET_FOOTER +
+            util.format(TEST_FOOTER, date, candidateName);
+
+    return new Promise(function (resolve, reject) {
+        var filepath = path.join(requiredPath, util.format('%s-%s.js', date, urlize(candidateName)));
+
+        fs.writeFile(filepath, testContent, function (err) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve();
+            }
+        });
+    });
+}
+
+async function main() {
+
+    // Load list
+    var snippets = await getSnippetsList(),
+        snippetsCount = snippets.length,
+        num = DEFAULT_NUM,
+        candidateName = DEFAULT_NAME,
+        requiredPath = DIST_FOLDER;
+
+    if (argv.hasOwnProperty('num') && typeof argv.num === 'number') {
+        num = Math.floor(argv.num);
+    }
+
+    if (argv.hasOwnProperty('name') && typeof argv.name === 'string') {
+        candidateName = argv.name;
+    }
+
+    if (argv.hasOwnProperty('path') && typeof argv.path === 'string') {
+        requiredPath = argv.path;
+    }
+
+    // Avoid trying to generate a big test with more snippets than we actually have
+    if (num > snippetsCount) {
+        num = snippetsCount;
+    }
+
+    console.log(util.format('Building test using %d snippets...', num));
+
+    while (snippets.length > num) {
+        snippets.splice(Math.floor(Math.random() * snippetsCount), 1);
+        snippetsCount -= 1;
+    }
+
+    snippets = await Promise.all(snippets.map(async (filename) => (await getSnippetContent(filename))));
+    await buildAndWriteTest(requiredPath, snippets, candidateName);
+    console.log('All done');
+}
+
+main();

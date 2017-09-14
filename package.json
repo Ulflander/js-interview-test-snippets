@@ -1,0 +1,23 @@
+{
+  "name": "js-interview-test-snippets",
+  "version": "1.0.0",
+  "description": "Test generator for JS developer interview",
+  "main": "generator",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ulflander/js-interview-test-snippets.git"
+  },
+  "author": "Xav Laumonier",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Ulflander/js-interview-test-snippets/issues"
+  },
+  "homepage": "https://github.com/Ulflander/js-interview-test-snippets#readme",
+  "dependencies": {
+    "urlize": "^0.2.1",
+    "yargs": "^8.0.2"
+  }
+}
