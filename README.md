@@ -7,7 +7,7 @@ It tests the knowledge about common pitfalls and edgy behaviours of Javascript, 
 
 - [ ] Add more test snippets
     - [ ] Case sensitivity
-    - [ ] async/wait
+    - [ ] async/await
     - [ ] map/reduce
 - [ ] Add answers+explanation in snippets source
 - [ ] Filter out answers+explanation from snippets when generating test
