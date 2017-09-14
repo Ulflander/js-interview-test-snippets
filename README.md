@@ -16,66 +16,59 @@ Use the following command to generate a new test in the `tests` folder:
 
 - `num`: Number of code snippets to include in the test (Optional, default: `10`)
 - `name`: String, name of candidate (Optional, default: `John Doe`)
-- `path`: Path of generated test file
-
+- `path`: Path of generated test file (Optional, default: `./tests/`)
 
 ### Test sample
 
 See below the generated test for the command `./generate --name "Han Solo" --num 2`.
 
 ```js
-// Welcome!
+// Hi Han Solo!
 //
 // This test contains 2 code snippets.
+// For each of this snippet, you have one or more question to answer.
+// One or many answer may apply to the questions.
 //
-// Good luck!
+// Good luck, and have fun! :)
+
+
 // -----------------------------------
+// Snippet #1
 // Given this code (executed in a browser):
 
-if (object !== null && typeof object !== 'undefined') {
-    console.log(object);
-}
+var isDifferent = function (a, b) {
+    return a != b;
+};
 
-object = 1;
-
+console.log(isDifferent(2, "2"));
 
 // What do you think may happen:
 //
-// 1. [ ] Nothing
-// 2. [ ] Logs `1` in console
-// 3. [ ] Logs `undefined` in console
-// 4. [ ] Logs `null` in console
-// 5. [ ] ReferenceError: object is not defined
+// 1. [ ] Logs `true` in console
+// 2. [ ] Logs `false` in console
 
 
 // -----------------------------------
+// Snippet #2
 // Given this code (executed in a browser):
 
-var firstname = 'Tom Hanks';
+var foo = function () {
+    console.log(n);
 
-function testName (name) {
-    if (name.indexOf(' ') === -1)
-        console.log(name);
-        name += ' & Jerry';
+    var n = 42;
+};
 
-    return name;
-}
+foo();
 
-firstname = testName(firstname);
-
-
-// What do you think may happen (multiple answers may apply):
+// What do you think may happen:
 //
-// 1. [ ] Nothing
-// 2. [ ] Logs `Tom` in console
-// 3. [ ] Logs `Tom Hanks` in console
-// 4. [ ] Logs `Tom Hanks & Jerry` in console
-// 5. [ ] `firstname` is now equal to `Tom Hanks`
-// 6. [ ] `firstname` is now equal to `Tom & Jerry`
-// 7. [ ] `firstname` is now equal to `Tom Hanks & Jerry`
+// 1. [ ] ReferenceError: n is not defined
+// 2. [ ] Nothing
+// 3. [ ] Logs `42` in console
+// 4. [ ] Logs `null` in console
+// 5. [ ] Logs `undefined` in console
 
 
 
-// Test generated on 2017-9-14 for candidate Han Solo.
-
+// Test generated on 2017-09-14 for candidate Han Solo.
 ```
